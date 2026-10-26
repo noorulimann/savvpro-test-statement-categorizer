@@ -64,8 +64,20 @@ These are real mistakes made during this session, not hypothetical ones:
 11. **Environment slip.** It used `curl 127.0.0.1:5173` while Vite listened only on
     `localhost` (IPv6), and the check hung until it timed out. *Fix:* used `localhost`.
 
-**What I kept in human hands / verified:** _(fill in: what you reviewed manually, what
-you changed, and anything you disagreed with)_.
+## What I kept in human hands / verified
+
+The AI wrote the code and the tests, but passing tests only show that the code does what
+the AI intended. They don't show that what it intended is correct. I checked the parts that
+depend on outside facts or judgment myself:
+
+- **Tax facts.** I checked the category design against the Schedule C rules: the
+  line-number mappings, the decision to treat local drivers' meals as personal, health
+  insurance going on Schedule 1, card rewards not being income, fines never being
+  deductible, and car loan payments going to review (lease vs. loan).
+- **Judgment numbers.** I reviewed the values that decide when the app asks instead of
+  guessing: the 0.75 review threshold, the confidence scores for each kind of evidence,
+  and the amount limits (for example $200 for fuel, and under $10 at a gas station
+  treated as possible snacks).
 
 ## Token usage
 
