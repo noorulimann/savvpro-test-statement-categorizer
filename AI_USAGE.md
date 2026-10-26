@@ -69,15 +69,24 @@ you changed, and anything you disagreed with)_.
 
 ## Token usage
 
-> **TODO (candidate):** Claude Code doesn't let the model read its own token counter,
-> so add the real numbers here:
->
-> - Run `/cost` (or `/usage`) in the Claude Code session, or open the usage page for your
->   account, and paste the totals below.
-> - Save screenshots in `docs/ai-usage/` and link them here.
+The whole project was built in **one Claude Code session**: 71 model calls to
+`claude-opus-5-5`, from 2026-10-26 13:57 to 15:47 UTC. The numbers below were added up
+from that session's local log (`~/.claude/projects/<project>/<session-id>.jsonl`), where
+every model response records a `usage` block. Streamed messages are counted once.
 
-| Session | Input tokens | Output tokens | Cache read / write | Cost |
-| --- | --- | --- | --- | --- |
-| Build session (Claude Code, Opus 5.5) | _TBD_ | _TBD_ | _TBD_ | _TBD_ |
+| Token type | Count |
+| --- | ---: |
+| Input tokens (new, uncached) | 142 |
+| Output tokens | 161,925 |
+| Cache write (prompt caching) | 441,182 |
+| Cache read (prompt caching) | 12,025,785 |
+| **Total processed** | **12,629,034** |
 
-Screenshots: `docs/ai-usage/…` _(add)_
+Most of the total is **cache reads**. In agent mode, every step resends the whole
+conversation (code written so far, test output and so on), and prompt caching serves it
+cheaply. The model actually *wrote* about 162k tokens.
+
+The session ran on a **Claude Max subscription**, so there is no per-token bill. The plan
+screen shows usage as a share of the plan limits:
+
+![Claude plan usage](docs/ai-usage/claude-plan-usage.png)
